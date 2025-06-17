@@ -13,8 +13,6 @@ pipeline {
         }
 
         stage('Git Information') {
-            agent any
-
             steps {
                 script {
                     // Print branch name
@@ -31,7 +29,6 @@ pipeline {
         stage('Unit Tests') {
             steps {
                 echo 'Running Unit Tests...'
-                // Simulate test
                 sh 'echo "Tests passed!"'
             }
         }
@@ -39,7 +36,6 @@ pipeline {
         stage('build') {
             steps {
                 echo 'Building the project...'
-                // Simulate build
                 sh 'echo "Build completed!"'
             }
         }
@@ -47,19 +43,15 @@ pipeline {
         stage('deploy') {
             steps {
                 echo 'Deploying the project...'
-                // Simulate deploy
                 sh 'echo "Deployment complete!"'
             }
         }
 
         stage('Running on Ubuntu') {
-            agent any
             steps {
                 echo 'Running tests on Ubuntu...'
             }
         }
-
-        
 
         stage('Promote to Green') {
             steps {
@@ -68,33 +60,23 @@ pipeline {
         }
 
         stage('Promote Development Branch to Master') {
-    steps {
-        echo "Merging development into master..."
-        sh '''
-            git checkout master
-            git fetch origin development:development
-            git merge development
-        '''
-    }
-}
-        stage('Promote Development Branch to Master') {
             steps {
-                echo 'Merging development into master...'
+                echo "Merging development into master..."
                 sh '''
-                git checkout master
-                git merge development
+                    git checkout master
+                    git fetch origin development:development
+                    git merge development
                 '''
             }
         }
     }
 
-    
     post {
         always {
             emailext (
                 to: 'pkarthickraja9@gmail.com',
-                subject: "Job '${env.JOB_NAME}' (${env.BUILD_NUMBER})",
-                body: "Build completed: ${env.BUILD_URL}"
+                subject: "Job '${env.JOB_NAME}' (#${env.BUILD_NUMBER})",
+                body: "Build completed. View at: ${env.BUILD_URL}"
             )
         }
     }
