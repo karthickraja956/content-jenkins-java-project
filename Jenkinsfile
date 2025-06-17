@@ -54,21 +54,14 @@ pipeline {
 
         stage('Running on Ubuntu') {
             agent {
-                label 'Ubuntu'
+                any
             }
             steps {
                 echo 'Running tests on Ubuntu...'
             }
         }
 
-        stage('Test on Debian') {
-            agent {
-                label 'debian'
-            }
-            steps {
-                echo 'Running tests on Debian...'
-            }
-        }
+        
 
         stage('Promote to Green') {
             steps {
