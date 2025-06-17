@@ -53,9 +53,7 @@ pipeline {
         }
 
         stage('Running on Ubuntu') {
-            agent {
-                any
-            }
+            agent any
             steps {
                 echo 'Running tests on Ubuntu...'
             }
