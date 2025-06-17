@@ -68,6 +68,16 @@ pipeline {
         }
 
         stage('Promote Development Branch to Master') {
+    steps {
+        echo "Merging development into master..."
+        sh '''
+            git checkout master
+            git fetch origin development:development
+            git merge development
+        '''
+    }
+}
+        stage('Promote Development Branch to Master') {
             steps {
                 echo 'Merging development into master...'
                 sh '''
