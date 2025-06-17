@@ -52,12 +52,12 @@ pipeline {
             }
         }
 
-        stage('Running on CentOS') {
+        stage('Running on Ubuntu') {
             agent {
-                label 'centos'
+                label 'Ubuntu'
             }
             steps {
-                echo 'Running tests on CentOS...'
+                echo 'Running tests on Ubuntu...'
             }
         }
 
